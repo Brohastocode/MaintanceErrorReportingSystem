@@ -1,5 +1,5 @@
 package MaintanceErrorReportingSystem.service;
-
+import MaintanceErrorReportingSystem.exceptions.MachineAlreadyExists;
 import MaintanceErrorReportingSystem.dto.MachineDTO;
 import MaintanceErrorReportingSystem.entity.Machine;
 import MaintanceErrorReportingSystem.repository.MachineRepository;
@@ -50,12 +50,19 @@ public class MachineServiceImpl implements MachineService {
         return machine.map(this::convertToDTO);
     }
 
+
+
     @Override
     public MachineDTO createMachine(MachineDTO machineDTO) {
+        Optional<Machine> existingMachine = machineRepository.findByCode(machineDTO.getCode());
+        if (existingMachine.isPresent()) {
+            throw new MachineAlreadyExists(machineDTO.getCode());
+        }
         Machine machine = convertToEntity(machineDTO);
         Machine savedMachine = machineRepository.save(machine);
         return convertToDTO(savedMachine);
     }
+
 
     @Override
     public MachineDTO updateMachine(Long id, MachineDTO machineDTO) {
