@@ -1,9 +1,9 @@
-package MaintanceErrorReportingSystem.controller;
-import MaintanceErrorReportingSystem.entity.User;
-import MaintanceErrorReportingSystem.entity.UserRole;
-import MaintanceErrorReportingSystem.service.UserService;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
+//package MaintanceErrorReportingSystem.controller;
+//import MaintanceErrorReportingSystem.entity.User;
+//import MaintanceErrorReportingSystem.entity.UserRole;
+//import MaintanceErrorReportingSystem.service.UserService;
+//import org.springframework.security.core.annotation.AuthenticationPrincipal;
+//import org.springframework.web.bind.annotation.GetMapping;
 //import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RestController;
 //
