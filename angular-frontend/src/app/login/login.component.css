@@ -1,0 +1,79 @@
+mat-card{
+  max-width: 400px;
+  margin: 2em auto;
+  text-align: center;
+}
+mat-form-field{
+  display: block;
+}
+
+
+mat-card {
+  max-width: 400px; /* Egy max szélesség a kártyának */
+  margin: 50px auto; /* Középre igazítás és némi margó felül/alul */
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Finomabb árnyék */
+}
+
+mat-card-header h2 {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 20px;
+  color: #3f51b5;
+  font-size: 2em;
+}
+
+mat-card-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+
+mat-error {
+  color: #f44336;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+button[mat-raised-button] {
+
+  height: 50px;
+  font-size: 1.1em;
+  font-weight: 600;
+  border-radius: 25px;
+  letter-spacing: 1px;
+  color: #3f51b5;
+
+
+  transition: background-color 0.2s ease-in-out,
+  box-shadow 0.2s ease-in-out,
+  transform 0.1s ease-in-out;
+}
+
+button[mat-raised-button]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Active állapot */
+button[mat-raised-button]:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+button[mat-raised-button][disabled] {
+  opacity: 0.2;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+
