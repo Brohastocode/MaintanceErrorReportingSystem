@@ -1,0 +1,41 @@
+button[mat-raised-button]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Active állapot */
+button[mat-raised-button]:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+button[mat-raised-button][disabled] {
+  opacity: 0.2;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+.switch-link {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.9em;
+  color: #555;
+}
+.switch-link a {
+  color: #007bff; /* Vagy Material primary color */
+  text-decoration: none;
+  font-weight: bold;
+}
+.switch-link a:hover {
+  text-decoration: underline;
+}
+/* Optional: Snackbar stílusok */
+.success-snackbar {
+  background-color: #4CAF50; /* Zöld */
+  color: white;
+}
+.error-snackbar {
+  background-color: #f44336; /* Piros */
+  color: white;
+}

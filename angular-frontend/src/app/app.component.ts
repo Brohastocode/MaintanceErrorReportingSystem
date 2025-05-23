@@ -1,13 +1,25 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet, RouterModule } from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
+import {NavbarComponent} from './navbar/navbar.component';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    RouterModule,
+    HttpClientModule,
+    NavbarComponent
+  ],
+  template: '<router-outlet></router-outlet>',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular-material-login';
+  title = 'My Angular App';
 }
+
+
