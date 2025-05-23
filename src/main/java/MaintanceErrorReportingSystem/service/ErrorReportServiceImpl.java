@@ -1,10 +1,10 @@
 package MaintanceErrorReportingSystem.service;
+import MaintanceErrorReportingSystem.entity.Device;
 import MaintanceErrorReportingSystem.entity.ErrorReport;
-import MaintanceErrorReportingSystem.entity.Machine;
-import MaintanceErrorReportingSystem.entity.MachineStatus;
+import MaintanceErrorReportingSystem.entity.DeviceStatus;
 import MaintanceErrorReportingSystem.entity.ReportStatus;
 import MaintanceErrorReportingSystem.repository.ErrorReportRepository;
-import MaintanceErrorReportingSystem.repository.MachineRepository;
+import MaintanceErrorReportingSystem.repository.DeviceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,17 +17,17 @@ import java.util.Optional;
 public class ErrorReportServiceImpl implements ErrorReportService {
 
     private final ErrorReportRepository errorReportRepository;
-    private final MachineRepository machineRepository;
+    private final DeviceRepository deviceRepository;
 
     @Override
     public ErrorReport createReport(ErrorReport report) {
         report.setReportedAt(LocalDateTime.now());
         report.setStatus(ReportStatus.OPEN);
 
-        // A gép státuszát is pirosra állítjuk
-        Machine machine = report.getMachine();
-        machine.setStatus(MachineStatus.FAULTY);
-        machineRepository.save(machine);
+
+        Device device = report.getDevice();
+        device.setStatus(DeviceStatus.REPORTED_ISSUE);
+        deviceRepository.save(device);
 
         return errorReportRepository.save(report);
     }
@@ -57,9 +57,9 @@ public class ErrorReportServiceImpl implements ErrorReportService {
         report.setResolverNote(resolverNote);
 
         // Gépet zöldre állítjuk
-        Machine machine = report.getMachine();
-        machine.setStatus(MachineStatus.WORKING);
-        machineRepository.save(machine);
+        Device device = report.getDevice();
+        device.setStatus(DeviceStatus.OPERATIONAL);
+        deviceRepository.save(device);
 
         return errorReportRepository.save(report);
     }

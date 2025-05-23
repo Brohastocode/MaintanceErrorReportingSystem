@@ -1,0 +1,37 @@
+.devices-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.device-card {
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.device-card mat-card-title {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.device-card mat-card-subtitle {
+  color: #777;
+}
+
+.device-card mat-card-content p {
+  margin: 5px 0;
+}
+
+.device-card mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+.device-card mat-card-actions button {
+  margin-left: 10px;
+}

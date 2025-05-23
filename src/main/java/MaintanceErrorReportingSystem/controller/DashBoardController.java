@@ -20,11 +20,11 @@ public class DashBoardController {
     @GetMapping
     public String getDashboard(@AuthenticationPrincipal User user) {
         // Itt a user objektum tartalmazza a bejelentkezett felhasználó adatait
-        if (user.getRole() == UserRole.ADMIN) {
+        if (user.getUserRole() == UserRole.ADMIN) {
             return "admin_dashboard"; // Admin dashboard
-        } else if (user.getRole() == UserRole.OPERATOR) {
+        } else if (user.getUserRole() == UserRole.OPERATOR) {
             return "operator_dashboard"; // Operator dashboard
-        } else if (user.getRole() == UserRole.MECHANIC) {
+        } else if (user.getUserRole() == UserRole.MECHANIC) {
             return "mechanic_dashboard"; // Mechanic dashboard
         } else {
             return "default_dashboard"; // Alapértelmezett dashboard

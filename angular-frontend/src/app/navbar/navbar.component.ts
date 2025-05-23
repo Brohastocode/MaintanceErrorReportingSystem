@@ -1,3 +1,4 @@
+
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
@@ -17,13 +18,11 @@ import { Subscription } from 'rxjs';
     MatIconModule
   ],
   template: `
-    <p style="color: red; background-color: yellow; padding: 5px;">DEBUG - Is Logged In (Navbar): {{ isLoggedIn }}</p>
-    <p style="color: red; background-color: yellow; padding: 5px;">DEBUG - User Role (Navbar): {{ userRole }}</p>
+    <mat-toolbar color="primary"> <span>Maintanence Error Reporting System</span>
 
-    <mat-toolbar color="primary" *ngIf="isLoggedIn">
-      <span>Maintanence Error Reporting System</span>
+      <span class="spacer"></span>
 
-      <span class="spacer"></span> <ng-container *ngIf="userRole === 'MECHANIC'">
+      <ng-container *ngIf="userRole === 'MECHANIC'">
         <button mat-button routerLink="/mechanic-dashboard">Mechanic Dashboard</button>
         <button mat-button routerLink="/mechanic-tasks">My Tasks</button>
       </ng-container>
@@ -51,51 +50,30 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private routerSubscription: Subscription | undefined;
 
   ngOnInit(): void {
-    // DEBUG: Ezt a logot kell látnunk, amikor a komponens inicializálódik
-    console.log('--- NavbarComponent: ngOnInit called. ---');
-    this.checkLoginStatus(); // Ellenőrizzük a bejelentkezési állapotot a kezdetekor
+    this.checkLoginStatus();
 
-    // Figyeljük a router eseményeit, hogy frissüljön a navbar (pl. bejelentkezés/kijelentkezés után)
     this.routerSubscription = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        console.log('--- NavbarComponent: NavigationEnd event detected. Checking login status. ---');
         this.checkLoginStatus();
       }
     });
   }
 
   ngOnDestroy(): void {
-    // Fontos, hogy leiratkozzunk az RxJS Subscription-ről, ha a komponens elpusztul
     if (this.routerSubscription) {
       this.routerSubscription.unsubscribe();
-      console.log('--- NavbarComponent: Unsubscribed from router events. ---');
     }
   }
 
   checkLoginStatus(): void {
-    const token = localStorage.getItem('authToken');
-    const role = localStorage.getItem('userRole');
-
-    // Az isLoggedIn true, ha van token, egyébként false
-    this.isLoggedIn = !!token;
-    this.userRole = role;
-
-    // DEBUG: Ezek a logok mutatják a localStorage tartalmát és a komponens állapotát
-    console.log('--- NavbarComponent: checkLoginStatus called. ---');
-    console.log('--- NavbarComponent: localStorage authToken:', token ? 'Present' : 'Not Present');
-    console.log('--- NavbarComponent: localStorage userRole:', this.userRole);
-    console.log('--- NavbarComponent: isLoggedIn state:', this.isLoggedIn);
-    console.log('--- NavbarComponent: userRole state (property):', this.userRole);
+    this.isLoggedIn = !!localStorage.getItem('authToken');
+    this.userRole = localStorage.getItem('userRole');
   }
 
   logout(): void {
-    // Töröljük a session adatokat a localStorage-ból
     localStorage.removeItem('authToken');
     localStorage.removeItem('userRole');
-    localStorage.removeItem('loggedInUser'); // Ha ezt a kulcsot is használod
-
-    // Átirányítás a login oldalra
+    localStorage.removeItem('loggedInUser');
     this.router.navigate(['/login']);
-    console.log('User logged out via Navbar.');
   }
 }

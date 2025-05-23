@@ -1,7 +1,10 @@
 package MaintanceErrorReportingSystem.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -18,8 +21,8 @@ public class ErrorReport {
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "machine_id")
-    private Machine machine;
+    @JoinColumn(name = "device_id")
+    private Device device;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "reported_by_id")
@@ -32,13 +35,8 @@ public class ErrorReport {
     @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false)
-    private LocalDateTime createdAt;
-
-    @Setter
     private LocalDateTime reportedAt;
 
-    @Setter
     private String resolverNote;
 
     private LocalDateTime resolvedAt;

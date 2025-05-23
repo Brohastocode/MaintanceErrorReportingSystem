@@ -40,7 +40,7 @@ public class UserController {
         return userService.findById(id).map(user -> {
             user.setUsername(updatedUser.getUsername());
             user.setPassword(updatedUser.getPassword());
-            user.setRole(updatedUser.getRole());
+            user.setUserRole(updatedUser.getUserRole());
             return ResponseEntity.ok(userService.save(user));
         }).orElse(ResponseEntity.notFound().build());
     }

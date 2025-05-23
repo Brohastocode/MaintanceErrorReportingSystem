@@ -1,6 +1,6 @@
 package MaintanceErrorReportingSystem.dto;
 
-import MaintanceErrorReportingSystem.entity.MachineStatus;
+import MaintanceErrorReportingSystem.entity.DeviceStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MachineDTO {
+public class DeviceDTO {
 
     private Long id;
     private String code; // Pl. EQ-001
     private String description;
-    private MachineStatus status; // A gép státusza (pl. Zöld = működik, Piros = hibás)
+    private DeviceStatus status; // A gép státusza (pl. Zöld = működik, Piros = hibás)
 
 }

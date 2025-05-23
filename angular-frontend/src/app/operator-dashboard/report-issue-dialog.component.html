@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Report Issue for {{ data.deviceName }} (ID: {{ data.deviceId }})</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="fill" style="width: 100%;">
+    <mat-label>Issue Description</mat-label>
+    <textarea matInput [(ngModel)]="description" rows="5" required></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onConfirm()" [disabled]="!description.trim()">Report</button>
+</mat-dialog-actions>

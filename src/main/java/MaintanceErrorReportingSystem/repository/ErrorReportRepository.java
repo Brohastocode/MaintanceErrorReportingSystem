@@ -10,7 +10,5 @@ import java.util.List;
 @Repository
 public interface ErrorReportRepository extends JpaRepository<ErrorReport, Long> {
 
-    List<ErrorReport> findByMachineIdAndStatus(Long machineId, String status);
     List<ErrorReport> findByStatus(ReportStatus status);
-    List<ErrorReport> findByReportedById(Long userId);
 }
