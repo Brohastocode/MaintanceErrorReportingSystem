@@ -1,7 +1,6 @@
 services:
   - type: web
     name: maintenance-backend
-    env: java
     plan: free
     buildCommand: mvn clean install -DskipTests
     startCommand: java -jar target/*.jar
