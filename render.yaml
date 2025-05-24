@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: maintenance-backend
+    env: java
+    plan: free
+    buildCommand: mvn clean install -DskipTests
+    startCommand: java -jar target/*.jar
+    rootDir: .
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        value: "postgresql://backend_db_gq0c_user:XAmRBrNzLFsm0oCsZPKyrEogKO8ZdY0P@dpg-d0offifdiees739b5uv0-a/backend_db_gq0c" # KÉZI BEÍRÁS!
+      - key: SPRING_DATASOURCE_USERNAME
+        value: "backend_db_gq0c_user"
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: "XAmRBrNzLFsm0oCsZPKyrEogKO8ZdY0P"
+      - key: SERVER_PORT
+        value: "10000"

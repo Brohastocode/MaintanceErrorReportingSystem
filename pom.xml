@@ -51,7 +51,6 @@
             <version>2.3.1</version>
         </dependency>
 
-
         <!--         Spring Security (később hasznos)-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
