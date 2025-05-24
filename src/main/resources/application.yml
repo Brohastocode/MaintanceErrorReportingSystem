@@ -1,11 +1,11 @@
 server:
-  port: 5432
+  port: 8080
 
 spring:
   datasource:
-    url: postgresql://backend_db_gq0c_user:XAmRBrNzLFsm0oCsZPKyrEogKO8ZdY0P@dpg-d0offifdiees739b5uv0-a.frankfurt-postgres.render.com/backend_db_gq0c
-    username: backend_db_gq0c_user
-    password: XAmRBrNzLFsm0oCsZPKyrEogKO8ZdY0P
+    url: jdbc:mysql://localhost:3306/maintenance_system?useSSL=false&serverTimezone=UTC
+    username: root
+    password: test1234
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
