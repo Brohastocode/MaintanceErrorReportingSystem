@@ -1,16 +1,18 @@
-server:
-  port: 8080
-
+# src/main/resources/application.yaml
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/maintenance_system?useSSL=false&serverTimezone=UTC
-    username: root
-    password: test1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver # Ezt is add meg expliciten, ha még nincs!
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      ddl-auto: update # Vagy none/validate, attól függ, mit szeretnél
+    show-sql: true # Hibakereséshez hasznos
     properties:
       hibernate:
-        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect # Ezt is add meg expliciten!
+
+server:
+  port: ${SERVER_PORT:8080} # Vagy ${PORT:8080}, ha Render alapértelmezett PORT-ját szeretnéd használni
+  # De mivel te beállítottál SERVER_PORT=10000-et, ez a helyes.
