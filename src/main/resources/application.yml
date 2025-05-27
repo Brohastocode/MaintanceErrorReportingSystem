@@ -1,9 +1,9 @@
 server:
-  port: ${PORT:8080}
+  port: 8080
 
 spring:
   datasource:
-    url: ${{ MySQL.MYSQL_URL }}}
+    url: jdbc:mysql://root:OCWSqrmDeQUZXZDrUuKNuAYNZOtaFQJL@nozomi.proxy.rlwy.net:26838/railway
     username: root
     password: OCWSqrmDeQUZXZDrUuKNuAYNZOtaFQJL
 
@@ -11,7 +11,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: false
+    show-sql: true
     properties:
       hibernate:
-        format_sql: false
+        format_sql: true
