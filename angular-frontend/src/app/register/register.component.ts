@@ -32,12 +32,12 @@ import {environment} from '../../environments/environment'; // Értesítés a re
 })
 export class RegisterComponent {
   user = {
-    email: '',
+    username : '',
     password: '',
     role: ''
   };
 
-  roles = [
+  role = [
     { display: 'Mechanic', value: 'MECHANIC' },
     { display: 'Operator', value: 'OPERATOR' }
   ];
@@ -49,14 +49,14 @@ export class RegisterComponent {
   private snackBar = inject(MatSnackBar);
 
   register() {
-    if (!this.user.email || !this.user.password || !this.user.role) {
+    if (!this.user.username || !this.user.password || !this.user.role) {
       this.registerValid = false;
       return;
     }
 
     const apiUrl = `${environment.apiUrl}/api/users`;
     const registerData = {
-      username: this.user.email,
+      username: this.user.username,
       password: this.user.password,
       role: this.user.role
     };

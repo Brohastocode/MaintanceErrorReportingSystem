@@ -7,8 +7,8 @@
       <mat-error *ngIf="!registerValid">Registration failed. Please fill all fields correctly.</mat-error>
 
       <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input matInput [(ngModel)]="user.email" name="email" required>
+        <mat-label>Username</mat-label>
+        <input matInput [(ngModel)]="user.username" name="name" required>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
@@ -19,7 +19,7 @@
       <mat-form-field appearance="fill">
         <mat-label>Select Role</mat-label>
         <mat-select [(ngModel)]="user.role" name="role" required>
-          <mat-option *ngFor="let role of roles" [value]="role.value">
+          <mat-option *ngFor="let role of role" [value]="role.value">
             {{role.display}}
           </mat-option>
         </mat-select>

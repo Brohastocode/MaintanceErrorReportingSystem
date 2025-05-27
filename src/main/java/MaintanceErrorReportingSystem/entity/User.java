@@ -1,6 +1,7 @@
 package MaintanceErrorReportingSystem.entity;
 
 import MaintanceErrorReportingSystem.service.UserService;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,6 +27,7 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     @Column(name="role")
+    @JsonProperty("role")
     private UserRole userRole;
 
     @Override
