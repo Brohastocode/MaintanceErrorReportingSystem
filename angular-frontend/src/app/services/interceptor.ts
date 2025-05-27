@@ -1,8 +1,9 @@
 import { HttpInterceptorFn } from '@angular/common/http';
+import {environment} from '../../environments/environment';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authToken = localStorage.getItem('authToken'); // Feltételezzük, hogy itt tárolod a tokent
-  const isApiRequest = req.url.startsWith('http://localhost:8080/api/'); // Csak a mi API végpontjainkra alkalmazzuk
+  const isApiRequest = req.url.startsWith(`${environment.apiUrl}/api/`); // Csak a mi API végpontjainkra alkalmazzuk
 
 
   if (authToken && isApiRequest) {

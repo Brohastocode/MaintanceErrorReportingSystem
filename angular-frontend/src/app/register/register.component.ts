@@ -9,7 +9,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router, RouterModule } from '@angular/router'; // RouterModule a linkekhez
 import { HttpClient } from '@angular/common/http';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'; // Értesítés a regisztrációról
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import {environment} from '../../environments/environment'; // Értesítés a regisztrációról
 
 @Component({
   selector: 'app-register',
@@ -53,7 +54,7 @@ export class RegisterComponent {
       return;
     }
 
-    const apiUrl = 'http://localhost:8080/api/users';
+    const apiUrl = `${environment.apiUrl}/api/users`;
     const registerData = {
       username: this.user.email,
       password: this.user.password,

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Device } from './DeviceService'; // Szükségünk van a Device interfészre
+import { Device } from './DeviceService';
+import {environment} from '../../environments/environment'; // Szükségünk van a Device interfészre
 
 
 export interface ErrorReport {
@@ -19,7 +20,7 @@ export interface ErrorReport {
   providedIn: 'root'
 })
 export class ErrorReportService {
-  private apiUrl = 'http://localhost:8080/api/reports';
+  private apiUrl = `${environment.apiUrl}/api/reports`;
 
   constructor(private http: HttpClient) { }
 

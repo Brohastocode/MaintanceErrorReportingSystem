@@ -11,6 +11,7 @@ import {Router, RouterModule} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSnackBar,MatSnackBarModule} from '@angular/material/snack-bar';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -53,7 +54,7 @@ export class LoginComponent {
       this.loginValid = false;
       return;
     }
-    const apiUrl = 'http://localhost:8080/auth/login';
+    const apiUrl = `${environment.apiUrl}/auth/login`;
 
     const loginData = {
       username: this.user.username,
