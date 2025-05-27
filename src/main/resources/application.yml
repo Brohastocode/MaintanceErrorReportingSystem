@@ -1,9 +1,7 @@
 # src/main/resources/application.yaml
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: ${DATABASE_URL}
     driver-class-name: org.postgresql.Driver # Ezt is add meg expliciten, ha még nincs!
   jpa:
     hibernate:
