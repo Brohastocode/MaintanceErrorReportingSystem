@@ -1,16 +1,14 @@
-# src/main/resources/application.yaml
 spring:
   datasource:
-    url: ${DATABASE_URL}
-    driver-class-name: org.postgresql.Driver # Ezt is add meg expliciten, ha még nincs!
+    url: ${DATABASE_URL} # Ezt a Railway-ről kapott MySQL DATABASE_URL-ből fogja venni
+    driver-class-name: com.mysql.cj.jdbc.Driver # Fontos, hogy ez legyen
   jpa:
     hibernate:
-      ddl-auto: update # Vagy none/validate, attól függ, mit szeretnél
-    show-sql: true # Hibakereséshez hasznos
+      ddl-auto: validate # Vagy amit használsz (pl. update fejlesztéshez)
+    show-sql: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect # Ezt is add meg expliciten!
+        dialect: org.hibernate.dialect.MySQL8Dialect # Ha MySQL 8+, vagy MySQL5Dialect ha régebbi
 
 server:
-  port: ${SERVER_PORT:8080} # Vagy ${PORT:8080}, ha Render alapértelmezett PORT-ját szeretnéd használni
-  # De mivel te beállítottál SERVER_PORT=10000-et, ez a helyes.
+  port: ${PORT:8080} # A Railway általában PORT változót használ
