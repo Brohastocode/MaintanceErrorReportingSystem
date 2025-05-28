@@ -12,7 +12,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Stage 2: Create the final image with just the JRE for a smaller image size
-FROM openjdk:17-jre-slim
+FROM openjdk:17-jre-slim-bullseye
 
 # Set the working directory
 WORKDIR /app
