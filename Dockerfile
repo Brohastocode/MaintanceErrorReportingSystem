@@ -1,5 +1,5 @@
 # Stage 1: Build a multi-stage build, using a JDK to build the application
-FROM openjdk:17-jdk-slim-bullseye AS build
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 
 # Set the working directory inside the container
 WORKDIR /app
