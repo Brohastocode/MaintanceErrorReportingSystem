@@ -1,37 +1,290 @@
-.devices-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+/* Általános konténer a dashboardnak */
+.mechanic-dashboard-container {
   padding: 20px;
-}
-
-.device-card {
-  width: 300px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1400px; /* Szélesebb fő konténer */
+  margin: 30px auto;
+  background-color: #f0f2f5;
   border-radius: 8px;
-  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Roboto', sans-serif;
 }
 
-.device-card mat-card-title {
-  font-size: 1.2em;
-  font-weight: bold;
+h2 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.2em;
+  font-weight: 500;
 }
 
-.device-card mat-card-subtitle {
-  color: #777;
+/* Fő elrendezés: 2 oszlopra osztva */
+.main-content-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Bal oldali rész (részletek) nagyobb, jobb oldali (grid + report) kisebb */
+  gap: 25px;
+  align-items: start; /* Felülre igazítás */
+  min-height: 80vh; /* Minimum magasság, hogy legyen hely a sticky-nek */
 }
 
-.device-card mat-card-content p {
-  margin: 5px 0;
+/* Bal oldali oszlop: Kiválasztott eszköz részletei */
+.selected-device-details {
+  position: sticky;
+  top: 20px;
+  align-self: start;
+  padding-bottom: 20px;
 }
 
-.device-card mat-card-actions {
+.selected-device-details mat-card {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  border: 2px solid #007bff;
+  transition: all 0.3s ease-in-out;
+  height: fit-content;
+}
+
+.selected-device-details mat-card-header {
+  background-color: #007bff;
+  color: white;
+  padding: 20px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.selected-device-details mat-card-title {
+  color: white;
+  font-size: 1.8em;
+  font-weight: 600;
+}
+
+.selected-device-details mat-card-subtitle {
+  color: #e0e0e0;
+}
+
+.selected-device-details mat-card-content {
+  padding: 20px;
+  font-size: 1.1em;
+  line-height: 1.6;
+}
+
+.selected-device-details mat-card-actions {
+  padding: 15px 20px;
+  border-top: 1px solid #e0e0e0;
   display: flex;
   justify-content: flex-end;
-  padding: 10px;
+  gap: 10px;
 }
 
-.device-card mat-card-actions button {
-  margin-left: 10px;
+.no-selection-message {
+  text-align: center;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  color: #555;
+  font-size: 1.2em;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Jobb oldali sáv elrendezés (kártya grid és report) */
+.right-sidebar-layout {
+  display: flex; /* Váltás flexboxra, hogy a belső elemek oszlopba rendeződjenek */
+  flex-direction: column; /* Oszlopba rendezés */
+  gap: 25px;
+  /* Ha a jobb oldali sávot akarod görgethetővé tenni, miközben a bal oldal fix: */
+  /* overflow-y: auto; */
+  /* max-height: calc(100vh - 40px); */
+}
+
+/* Eszközök grid elrendezése (kis kártyák) */
+.devices-grid {
+  display: grid;
+  /* repeat(auto-fill, minmax(...)) a dinamikus oszlopokért */
+  /* Minél kisebb a minmax érték, annál több fér el egymás mellett. */
+  /* Próbáld meg 120px-re, ha a 160px túl soknak bizonyul. */
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 15px;
+  /* Biztosítjuk, hogy a kártyák tényleg kitöltsék a rendelkezésre álló helyet, ha szükséges */
+  width: 100%;
+}
+
+/* Egyedi stílus a kis eszköz kártyáknak */
+.device-grid-card {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  padding: 0;
+  background-color: #ffffff;
+  /* Mat-card-ok display beállítása, ha a grid nem rendezné őket jól */
+  display: block; /* Vagy inline-block, ha extra kontrollt akarsz, de block a default */
+  width: auto; /* Hagyja, hogy a grid határozza meg a szélességét */
+}
+
+.device-grid-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Kiválasztott eszköz kártyájának kiemelése a gridben */
+.device-grid-card.selected-device-card {
+  border: 2px solid #007bff;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  background-color: #e0f2ff;
+}
+
+.device-grid-card mat-card-header {
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.device-grid-card mat-card-title {
+  font-size: 1em;
+  font-weight: 500;
+  color: #34495e;
+  text-align: center; /* Cím középre igazítása */
+}
+
+.device-grid-card mat-card-content {
+  padding: 10px;
+  text-align: center; /* Tartalom középre igazítása */
+}
+
+.device-grid-card mat-card-content p {
+  font-size: 0.85em;
+  margin-bottom: 5px;
+}
+
+.device-grid-card mat-card-content mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+
+/* Státusz színek */
+.device-status-operational { color: #28a745; font-weight: bold; }
+.device-status-reported-issue { color: #ffc107; font-weight: bold; }
+.device-status-in-maintenance { color: #fd7e14; font-weight: bold; }
+.device-status-default { color: #6c757d; font-weight: bold; }
+
+
+/* Utolsó hibaüzenet kártya (jobb oldali sávban) */
+.latest-report-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
+}
+
+.latest-report-card mat-card-header {
+  background-color: #dc3545;
+  color: white;
+  padding: 15px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.latest-report-card mat-card-title {
+  color: white;
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+.latest-report-card mat-card-content {
+  padding: 15px;
+}
+
+/* Betöltési és hibaüzenetek */
+.loading-message, .error-message, .no-report-message {
+  text-align: center;
+  padding: 15px;
+  font-size: 1em;
+}
+
+.loading-message mat-spinner {
+  margin: 0 auto 10px auto;
+}
+
+.error-message {
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.error-message mat-icon {
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 8px;
+}
+
+.error-message button {
+  margin-top: 10px;
+  background-color: #dc3545;
+  color: white;
+  font-size: 0.9em;
+  padding: 6px 12px;
+}
+
+.no-report-message {
+  color: #6c757d;
+  font-style: italic;
+}
+
+.report-details p {
+  margin-bottom: 6px;
+  font-size: 0.95em;
+  color: #495057;
+}
+
+.report-details strong {
+  color: #34495e;
+}
+
+
+/* Reszponzivitás */
+@media (max-width: 992px) {
+  .main-content-layout {
+    grid-template-columns: 1fr; /* Egy oszlopra vált kisebb képernyőkön */
+  }
+  .selected-device-details {
+    position: static; /* Kisebb képernyőn ne legyen sticky */
+    top: auto;
+    padding-bottom: 0;
+  }
+  .devices-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* Kisebb kártyák kisebb képernyőn */
+  }
+  .selected-device-details mat-card-title {
+    font-size: 1.4em;
+  }
+}
+
+@media (max-width: 768px) {
+  .mechanic-dashboard-container {
+    padding: 10px;
+    margin: 15px auto;
+  }
+  h2 {
+    font-size: 1.6em;
+    margin-bottom: 15px;
+  }
+  .devices-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Még kisebbek */
+  }
+  .device-grid-card mat-card-content {
+    padding: 5px;
+  }
+  .device-grid-card mat-card-title {
+    font-size: 0.9em;
+  }
 }

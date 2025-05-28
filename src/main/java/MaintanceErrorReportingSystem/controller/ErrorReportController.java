@@ -1,5 +1,6 @@
 package MaintanceErrorReportingSystem.controller;
 
+import MaintanceErrorReportingSystem.dto.CloseReportRequest;
 import MaintanceErrorReportingSystem.entity.Device; // Device entitás
 import MaintanceErrorReportingSystem.entity.ErrorReport; // ErrorReport entitás
 import MaintanceErrorReportingSystem.entity.ReportStatus; // ReportStatus enum
@@ -68,8 +69,41 @@ public class ErrorReportController {
 
     @PutMapping("/{id}/close")
     @PreAuthorize("hasRole('MECHANIC')")
-    public ResponseEntity<ErrorReport> closeReport(@PathVariable Long id, @RequestBody String resolverNote) {
-        ErrorReport closedReport = errorReportService.closeReport(id, resolverNote);
-        return ResponseEntity.ok(closedReport);
+    public ResponseEntity<ErrorReport> closeReport(@PathVariable Long id, @RequestBody(required = false) CloseReportRequest request) { // Módosított paraméter
+        // A resolverNote opcionális, ha nincs megadva, akkor null lesz.
+        String resolverNote = (request != null) ? request.getResolverNote() : null;
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User resolver = null;
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            resolver = (User) userDetailsService.loadUserByUsername(userDetails.getUsername());
+        } else {
+            return ResponseEntity.status(401).build(); // Nem bejelentkezett felhasználó
+        }
+
+        try {
+            ErrorReport closedReport = errorReportService.closeReport(id, resolverNote, resolver);
+            return ResponseEntity.ok(closedReport);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/latest")
+    @PreAuthorize("hasRole('MECHANIC')")
+    public ResponseEntity<ErrorReport> getLatestReports() {
+        return errorReportService.findLatestErrorReport()
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/device/{deviceId}") // Az új végpont!
+    @PreAuthorize("hasAnyRole('MECHANIC', 'OPERATOR')") // Döntsd el, ki láthatja (mechanic biztosan)
+    public ResponseEntity<ErrorReport> getReportByDeviceId(@PathVariable Long deviceId) {
+        Optional<ErrorReport> report = errorReportService.findLatestOpenErrorReportByDeviceId(deviceId);
+
+        return report.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }

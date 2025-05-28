@@ -1,10 +1,8 @@
 package MaintanceErrorReportingSystem.service;
-import MaintanceErrorReportingSystem.entity.Device;
-import MaintanceErrorReportingSystem.entity.ErrorReport;
-import MaintanceErrorReportingSystem.entity.DeviceStatus;
-import MaintanceErrorReportingSystem.entity.ReportStatus;
+import MaintanceErrorReportingSystem.entity.*;
 import MaintanceErrorReportingSystem.repository.ErrorReportRepository;
 import MaintanceErrorReportingSystem.repository.DeviceRepository;
+import aj.org.objectweb.asm.commons.Remapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -48,20 +46,31 @@ public class ErrorReportServiceImpl implements ErrorReportService {
     }
 
     @Override
-    public ErrorReport closeReport(Long id, String resolverNote) {
+    public ErrorReport closeReport(Long id, String resolverNote, User resolver) {
         ErrorReport report = errorReportRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Report not found"));
 
         report.setStatus(ReportStatus.CLOSED);
         report.setResolvedAt(LocalDateTime.now());
         report.setResolverNote(resolverNote);
-
-        // Gépet zöldre állítjuk
+        report.setResolvedBy(resolver);
         Device device = report.getDevice();
         device.setStatus(DeviceStatus.OPERATIONAL);
         deviceRepository.save(device);
 
         return errorReportRepository.save(report);
     }
+
+    @Override
+    public Optional<ErrorReport> findLatestErrorReport() {
+        return errorReportRepository.findTopByOrderByReportedAtDesc();
+    }
+
+    @Override
+    public Optional<ErrorReport> findLatestOpenErrorReportByDeviceId(Long deviceId) {
+
+        return errorReportRepository.findTopByDeviceIdAndStatusOrderByReportedAtDesc(deviceId, ReportStatus.OPEN);
+    }
 }
+
 
