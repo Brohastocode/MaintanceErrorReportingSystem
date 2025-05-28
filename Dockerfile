@@ -1,5 +1,5 @@
 # Stage 1: Build a multi-stage build, using a JDK to build the application
-FROM openjdk:17-jdk AS build
+FROM openjdk:17-jdk-slim-bullseye AS build
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -12,12 +12,13 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Stage 2: Create the final image with just the JRE for a smaller image size
-FROM openjdk:17-jre
+FROM openjdk:17-jre-slim-bullseye
 
 # Set the working directory
 WORKDIR /app
 
 # Copy the built JAR file from the 'build' stage
+# Fontos: ellenőrizd a JAR fájl pontos nevét!
 COPY --from=build /app/target/MaintenanceErrorReportingSystem-1.0-SNAPSHOT.jar app.jar
 
 # Expose the port your Spring Boot application runs on (default is 8080)
