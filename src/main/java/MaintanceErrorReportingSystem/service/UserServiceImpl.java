@@ -1,6 +1,7 @@
 package MaintanceErrorReportingSystem.service;
 
 import MaintanceErrorReportingSystem.entity.User;
+import MaintanceErrorReportingSystem.entity.UserRole;
 import MaintanceErrorReportingSystem.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -44,6 +45,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public User updateUserRole(Long id, UserRole newRole) {
+        return userRepository.findById(id).map(user -> {user.setUserRole(newRole);
+        return userRepository.save(user);}).orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
     }
 }
 

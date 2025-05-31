@@ -17,26 +17,7 @@ import { Subscription } from 'rxjs';
     MatButtonModule,
     MatIconModule
   ],
-  template: `
-    <mat-toolbar color="primary"> <span>Maintanence Error Reporting System</span>
-
-      <span class="spacer"></span>
-
-      <ng-container *ngIf="userRole === 'MECHANIC'">
-        <button mat-button routerLink="/mechanic-dashboard">Mechanic Dashboard</button>
-        <button mat-button routerLink="/mechanic-tasks">My Tasks</button>
-      </ng-container>
-
-      <ng-container *ngIf="userRole === 'OPERATOR'">
-        <button mat-button routerLink="/operator-dashboard">Operator Dashboard</button>
-        <button mat-button routerLink="/report-issue">Report Issue</button>
-      </ng-container>
-
-      <button mat-flat-button color="warn" (click)="logout()">
-        <mat-icon>logout</mat-icon> Logout
-      </button>
-    </mat-toolbar>
-  `,
+  templateUrl: './navbar.component.html',
   styles: `
     .spacer {
       flex: 1 1 auto;

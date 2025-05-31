@@ -1,0 +1,7 @@
+<div class="theme-toggle-container">
+  <label class="switch">
+    <input type="checkbox" [checked]="isDarkMode" (change)="onToggleChange()">
+    <span class="slider round"></span>
+  </label>
+  <span class="toggle-text">{{ isDarkMode ? 'Dark Mode' : 'Light Mode' }}</span>
+</div>

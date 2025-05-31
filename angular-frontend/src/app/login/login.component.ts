@@ -63,35 +63,37 @@ export class LoginComponent {
 
     this.http.post<any>(apiUrl, loginData)
       .subscribe({
-      next: (response)=> {
-        console.log("Login success",response);
-        this.loginValid=true;
-        if (response && response.token) {
-          localStorage.setItem('authToken', response.token);
-          localStorage.setItem('loggedInUser', JSON.stringify(this.user.username));
-          localStorage.setItem('userRole', response.role);
-          this.snackBar.open('Login successful!', 'Close', {
-            duration: 3000,
-            panelClass: ['success-snackbar']
-          });
-          const userRole = response.role;
-          if (userRole === 'MECHANIC') {
-            this.router.navigate(['/mechanic-dashboard']);
-          } else if (userRole === 'OPERATOR') {
-            this.router.navigate(['/operator-dashboard']);
-          } else {
-            console.warn('Unknown user role:', userRole);
-            this.router.navigate(['/unauthorized']);
-          }
+        next: (response)=> {
+          console.log("Login success",response);
+          this.loginValid=true;
+          if (response && response.token) {
+            localStorage.setItem('authToken', response.token);
+            localStorage.setItem('loggedInUser', JSON.stringify(this.user.username));
+            localStorage.setItem('userRole', response.role);
+            this.snackBar.open('Login successful!', 'Close', {
+              duration: 3000,
+              panelClass: ['success-snackbar']
+            });
+            const userRole = response.role;
+            if (userRole === 'MECHANIC') {
+              this.router.navigate(['/mechanic-dashboard']);
+            } else if (userRole === 'OPERATOR') {
+              this.router.navigate(['/operator-dashboard']);
+            } else if (userRole === 'ADMIN') {
+              this.router.navigate(['/admin-dashboard']);
+            }else {
+              console.warn('Unknown user role:', userRole);
+              this.router.navigate(['/unauthorized']);
+            }
 
-        } else {
-          this.snackBar.open('Login successful, but no token received.', 'Close', {
-            duration: 5000,
-            panelClass: ['error-snackbar']
-          });
-          console.warn('Login successful, but no token received.');
-        }
-      },
+          } else {
+            this.snackBar.open('Login successful, but no token received.', 'Close', {
+              duration: 5000,
+              panelClass: ['error-snackbar']
+            });
+            console.warn('Login successful, but no token received.');
+          }
+        },
         error: (error) => {
           console.error('Login failed!', error);
           this.loginValid = false;

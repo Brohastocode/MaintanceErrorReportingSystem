@@ -4,18 +4,15 @@ import {Observable, of} from 'rxjs'; // Hozzáadtuk az 'of'-ot a hibakezeléshez
 import {catchError} from 'rxjs/operators'; // Hozzáadtuk a 'catchError'-t
 import {Device} from './DeviceService';
 import {environment} from '../../environments/environment';
+import {User} from '../interfaces/user.interface';
 
-export interface User {
-  id: number;
-  username: string;
-}
 
 export interface ErrorReport {
   id?: number;
   description: string;
   device: Device;
   reportedBy?: User;
-  status?: 'OPEN' | 'CLOSED'; // A korábbi hibajelentésekben 'OPEN' | 'IN_PROGRESS' | 'RESOLVED' volt, ellenőrizd, melyik a helyes!
+  status?: 'OPEN' | 'CLOSED';
   reportedAt?: number[];
   resolvedAt?: number[];
   resolverNote?: string;
@@ -38,10 +35,6 @@ export class ErrorReportService {
 
   getAllReports(): Observable<ErrorReport[]> {
     return this.http.get<ErrorReport[]>(this.apiUrl);
-  }
-
-  getOpenReports(): Observable<ErrorReport[]> {
-    return this.http.get<ErrorReport[]>(`${this.apiUrl}/open`);
   }
 
   closeReport(reportId: number, resolverNote: string): Observable<ErrorReport> {

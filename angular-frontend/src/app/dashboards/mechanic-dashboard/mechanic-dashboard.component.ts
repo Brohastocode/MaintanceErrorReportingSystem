@@ -4,16 +4,15 @@ import {Router} from '@angular/router';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
-import {Device, DeviceService} from '../services/DeviceService';
+import {Device, DeviceService} from '../../services/DeviceService';
 import {Subscription} from 'rxjs';
-import {ErrorReport, ErrorReportService} from '../services/error-report.service';
+import {ErrorReport, ErrorReportService} from '../../services/error-report.service';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-mechanic-dashboard',
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatCardModule, MatIconModule, MatProgressSpinnerModule],
-  // A template mostantól közvetlenül itt van
   template: `
     <div class="mechanic-dashboard-container">
       <h2>Mechanic Dashboard</h2>
@@ -170,13 +169,11 @@ export class MechanicDashboardComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
 
   selectedDeviceId: number | null = null;
-  // ÚJ VÁLTOZÓK: A kiválasztott eszköz specifikus hibajelentéséhez
   currentDeviceErrorReport: ErrorReport | null = null;
   isDeviceReportLoading: boolean = false;
   deviceReportError: string | null = null;
 
   ngOnInit(): void {
-    // Frissítjük a bejelentkezési státuszt és a szerepkört
     this.isLoggedIn = !!localStorage.getItem('authToken');
     this.userRole = localStorage.getItem('userRole');
 

@@ -28,14 +28,14 @@ public class DeviceController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('MECHANIC') or hasRole('OPERATOR')")
+    @PreAuthorize("hasRole('MECHANIC') or hasRole('OPERATOR') or hasRole ('ADMIN')")
     public ResponseEntity<List<Device>> getAllDevices() {
         List<Device> devices = deviceService.getAllDevices();
         return ResponseEntity.ok(devices);
     }
 
     @PutMapping("/{id}/status")
-    @PreAuthorize("hasRole('MECHANIC')")
+    @PreAuthorize("hasRole('MECHANIC') or hasRole ('ADMIN')")
     public ResponseEntity<Device> updateDeviceStatus(
             @PathVariable Long id,
             @RequestParam DeviceStatus newStatus) { // A kérés URL-jéből olvassa ki az 'id'-t és a 'newStatus'-t

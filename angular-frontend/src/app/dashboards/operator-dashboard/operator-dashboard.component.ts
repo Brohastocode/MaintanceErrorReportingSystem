@@ -3,54 +3,19 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon'; // Ikonokhoz
-import { Device, DeviceService } from '../services/DeviceService';
+import { Device, DeviceService } from '../../services/DeviceService';
 import { Subscription } from 'rxjs';
 import {MatCardModule} from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
-import { ErrorReport, ErrorReportService } from '../services/error-report.service';
+import { ErrorReport, ErrorReportService } from '../../services/error-report.service';
 import { ReportIssueDialogComponent } from './report-issue-dialog.component';
 
 @Component({
   selector: 'app-operator-dashboard',
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatIconModule, MatCardModule,MatDialogModule,FormsModule],
-  template: `
-    <h2>Operator Dashboard</h2>
-
-    <div class="devices-container">
-      <mat-card *ngFor="let device of devices" class="device-card">
-        <mat-card-header>
-          <mat-card-title>{{ device.name }}</mat-card-title>
-          <mat-card-subtitle>{{ device.location }}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>Státusz:
-            <span [style.color]="getStatusColor(device.status)" style="font-weight: bold;">
-          {{ device.status }}
-        </span>
-          </p>
-          <mat-icon [style.color]="getStatusColor(device.status)">
-            {{ device.status === 'OPERATIONAL' ? 'check_circle' : 'warning' }}
-          </mat-icon>
-        </mat-card-content>
-        <mat-card-actions *ngIf="userRole === 'OPERATOR'">
-          <button mat-raised-button color="primary"
-                  (click)="reportIssue(device)"
-                  [disabled]="device.status === 'REPORTED_ISSUE' || device.status === 'IN_MAINTENANCE'">
-            <mat-icon>report_problem</mat-icon> Report Issue
-          </button>
-          <span *ngIf="device.status === 'REPORTED_ISSUE' || device.status === 'IN_MAINTENANCE'"
-                style="color: gray; margin-left: 10px;">
-        Issue already reported or in maintenance.
-      </span>
-        </mat-card-actions>
-      </mat-card>
-      <div *ngIf="!devices.length">
-        <p>Loading devices or no devices found...</p>
-      </div>
-    </div>
-  `,
+  templateUrl: 'operator-dashboard.component.html',
   styleUrl: './operator-dashboard.component.css'
 })
 export class OperatorDashboardComponent implements OnInit, OnDestroy {
@@ -86,7 +51,6 @@ export class OperatorDashboardComponent implements OnInit, OnDestroy {
       },
       error: (err) => {
         console.error('OperatorDashboardComponent: Failed to load devices:', err);
-        // Itt kezelheted a hibát
       }
     });
   }

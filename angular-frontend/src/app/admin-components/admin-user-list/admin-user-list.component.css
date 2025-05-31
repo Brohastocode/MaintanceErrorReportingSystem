@@ -1,0 +1,51 @@
+.user-management-card {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+mat-card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  margin-top: 1rem;
+  border-collapse: collapse;
+}
+
+mat-header-cell, mat-cell {
+  padding: 1rem;
+  text-align: left;
+}
+
+mat-form-field.role-select {
+  width: 100%;
+  min-width: 150px;
+}
+
+button {
+  min-width: 80px;
+}
+
+@media (max-width: 600px) {
+  .user-management-card {
+    margin: 1rem;
+    padding: 0.5rem;
+  }
+
+  mat-card-title {
+    font-size: 1.2rem;
+  }
+
+  mat-form-field.role-select {
+    min-width: 100px;
+  }
+
+  mat-header-cell, mat-cell {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+}

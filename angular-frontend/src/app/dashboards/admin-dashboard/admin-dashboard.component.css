@@ -1,0 +1,36 @@
+/* src/app/components/admin/admin-dashboard/admin-dashboard.component.scss */
+
+.admin-dashboard {
+  background-color: var(--background-color); /* A globális háttérszín */
+  color: var(--text-color-primary); /* Az elsődleges szövegszín */
+  padding: 20px;
+  min-height: calc(100vh - 60px); /* Példa: teljes képernyő magasság mínusz navbar magasság */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Átmenetek */
+}
+
+.admin-dashboard h2,
+.admin-dashboard h3 {
+  color: var(--text-color-primary);
+  transition: color 0.3s ease;
+}
+
+.admin-actions ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex; /* Opcionális: sorba rendezi a linkeket */
+  gap: 15px; /* Helyköz a linkek között */
+}
+
+.admin-actions li a {
+  background-color: var(--accent-color);
+  color: var(--accent-text-color);
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.admin-actions li a:hover {
+  filter: brightness(1.1);
+}
